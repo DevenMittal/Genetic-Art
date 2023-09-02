@@ -25,7 +25,7 @@ namespace Genetic_Art
         public static float mutateChance = 0.7f;
         public static float removeChance = 0.1f;
 
-        public static int maxTriangles = 400;
+        public static int maxTriangles = 60;
 
     }
 }

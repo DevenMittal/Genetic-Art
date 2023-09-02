@@ -10,7 +10,7 @@ namespace Genetic_Art
     internal class GeneticArtTrainer
     {
         TriangleArt[] population;
-        public double bestError = double.MaxValue;
+        public double bestError;
         public GeneticArtTrainer(Bitmap orignalImage, int maxTriangles, int populationSize)
         {
             population= new TriangleArt[populationSize];
@@ -18,6 +18,7 @@ namespace Genetic_Art
             {
                 population[i] = new TriangleArt(maxTriangles, orignalImage);
             }
+            bestError = double.MaxValue;
         }
 
         public double Train(Random random)
@@ -28,12 +29,19 @@ namespace Genetic_Art
                 population[0].CopyTo(population[i]);
                 population[i].Mutate(random);
                 double currentError = population[i].GetError();
-                if (bestError> currentError)
+                if (bestError > currentError)
                 {
                     bestError = currentError;
                     currentIndex = i;
                 } 
             }
+
+            TriangleArt temp = new TriangleArt();
+            population[0].CopyTo(temp);
+            population[currentIndex].CopyTo(population[0]);
+            temp.CopyTo(population[currentIndex]);
+            return bestError;
+            /*
             double firstError = population[0].GetError();
             if (bestError < firstError)
             {
@@ -43,6 +51,7 @@ namespace Genetic_Art
                 return bestError;
             }
             return firstError;
+            */        
         }
 
         public Bitmap GetBestImage(int x, int y)

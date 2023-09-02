@@ -76,7 +76,7 @@
             // bestLabel
             // 
             this.bestLabel.AutoSize = true;
-            this.bestLabel.Location = new System.Drawing.Point(1745, 136);
+            this.bestLabel.Location = new System.Drawing.Point(1704, 133);
             this.bestLabel.Name = "bestLabel";
             this.bestLabel.Size = new System.Drawing.Size(13, 15);
             this.bestLabel.TabIndex = 14;
