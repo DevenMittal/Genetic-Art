@@ -16,11 +16,16 @@ namespace Genetic_Art
         List<Triangle> triangles;
         Bitmap originalImage;
         public TriangleArt(int maxTriangles, Bitmap originalImage)
+            : this(maxTriangles, originalImage, new Random())
+        {
+        }
+
+        public TriangleArt(int maxTriangles, Bitmap originalImage, Random random)
         {
             this.maxTriangles = maxTriangles;
             this.originalImage = originalImage;
             triangles = new List<Triangle>();
-            triangles.Add(Triangle.RandomTriangle(new Random()));
+            triangles.Add(Triangle.RandomTriangle(random));
         }
         public TriangleArt()
         {

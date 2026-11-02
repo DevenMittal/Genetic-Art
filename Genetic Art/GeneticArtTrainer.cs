@@ -12,11 +12,16 @@ namespace Genetic_Art
         TriangleArt[] population;
         public double bestError;
         public GeneticArtTrainer(Bitmap orignalImage, int maxTriangles, int populationSize)
+            : this(orignalImage, maxTriangles, populationSize, new Random())
+        {
+        }
+
+        public GeneticArtTrainer(Bitmap orignalImage, int maxTriangles, int populationSize, Random random)
         {
             population= new TriangleArt[populationSize];
             for (int i = 0; i < population.Length; i++)
             {
-                population[i] = new TriangleArt(maxTriangles, orignalImage);
+                population[i] = new TriangleArt(maxTriangles, orignalImage, random);
             }
             bestError = double.MaxValue;
         }

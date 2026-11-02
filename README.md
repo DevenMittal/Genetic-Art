@@ -10,7 +10,11 @@ I built a Windows desktop experiment that approximates an image with translucent
 
 ![IMG_6846](https://github.com/user-attachments/assets/6b1306d2-5fbf-4e88-8ba9-5479de6f04f8)
 
-These are the original images attached to this repository. I have kept them instead of replacing them with generated examples.
+These are the original images attached to this repository. The reproducible checkpoint export below is the better view of the search process.
+
+### Checkpoint export
+
+The optional `--export` mode saves the best candidate at generations 0, 25, 100, 250, 500, and 1,000. It uses a fixed seed and runs on Windows through the repository's GitHub Actions workflow. The workflow artifact contains the PNG checkpoints and `metrics.csv`.
 
 ## How it works
 
@@ -44,6 +48,6 @@ Press **Do** to run 1,000 training iterations and update the candidate images. T
 
 ## Current limitations
 
-Training runs on the UI thread, so the form can be unresponsive during a batch. The trainer now keeps at least one triangle, disposes temporary drawing resources, releases bitmap locks after error calculation, and disposes replaced preview images. There is no repeatable seed or exported training history.
+Training runs on the UI thread, so the form can be unresponsive during a batch. The trainer now keeps at least one triangle, disposes temporary drawing resources, releases bitmap locks after error calculation, and disposes replaced preview images. The optional export uses a repeatable seed and records milestone images.
 
 The project compiled with Windows targeting enabled during a local macOS check. The Windows Forms UI still has not been rerun here, so a new visual recording needs a Windows desktop run.

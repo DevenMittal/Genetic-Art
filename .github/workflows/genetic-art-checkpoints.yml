@@ -1,0 +1,21 @@
+name: Genetic Art checkpoints
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+
+jobs:
+  export:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.x
+      - name: Export milestone images
+        run: dotnet run --project "Genetic Art/Genetic Art.csproj" -c Release -- --export
+      - uses: actions/upload-artifact@v4
+        with:
+          name: genetic-art-checkpoints
+          path: "Genetic Art/bin/Release/net6.0-windows/checkpoints/"
