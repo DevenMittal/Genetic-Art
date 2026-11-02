@@ -23,7 +23,7 @@ namespace Genetic_Art
             {
                 population[i] = new TriangleArt(maxTriangles, orignalImage, random);
             }
-            bestError = double.MaxValue;
+            bestError = population[0].GetError();
         }
 
         public double Train(Random random)
