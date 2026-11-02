@@ -44,6 +44,6 @@ Press **Do** to run 1,000 training iterations and update the candidate images. T
 
 ## Current limitations
 
-Training runs on the UI thread, so the form can be unresponsive during a batch. Bitmap/graphics resource cleanup and empty-candidate mutation need attention before long runs. There is no repeatable seed or exported training history.
+Training runs on the UI thread, so the form can be unresponsive during a batch. The trainer now keeps at least one triangle, disposes temporary drawing resources, releases bitmap locks after error calculation, and disposes replaced preview images. There is no repeatable seed or exported training history.
 
-The native macOS build is blocked by the Windows target (`NETSDK1100`). The Windows UI has not been rerun during this documentation pass.
+The project compiled with Windows targeting enabled during a local macOS check. The Windows Forms UI still has not been rerun here, so a new visual recording needs a Windows desktop run.

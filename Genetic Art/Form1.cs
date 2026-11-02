@@ -47,7 +47,9 @@ namespace Genetic_Art
                 {
                     PictureBox box = (PictureBox)OutputPanel.Controls[j];
 
+                    Image? previousImage = box.Image;
                     box.Image = moira.GetImage(Original.Image.Width, Original.Image.Height, j);
+                    previousImage?.Dispose();
                     box.Update();
                 }
             }

@@ -41,7 +41,7 @@ namespace Genetic_Art
                     triangles.Remove(triangles[0]);
                 }
             }
-            else if (aColor < Constants.addChance+Constants.removeChance)
+            else if (aColor < Constants.addChance + Constants.removeChance && triangles.Count > 1)
             {
                 int randIndex = random.Next(0, triangles.Count);
                 triangles.Remove(triangles[randIndex]);
@@ -60,11 +60,12 @@ namespace Genetic_Art
         {
             var GaryB = new Bitmap(width, height);
 
-            Graphics gfx = Graphics.FromImage(GaryB);
-
-            for (int i = 0; i < triangles.Count; i++)
+            using (Graphics gfx = Graphics.FromImage(GaryB))
             {
-                triangles[i].DrawTriangle(gfx, width, height);
+                for (int i = 0; i < triangles.Count; i++)
+                {
+                    triangles[i].DrawTriangle(gfx, width, height);
+                }
             }
             return GaryB;
 
@@ -79,7 +80,7 @@ namespace Genetic_Art
         }
         public double GetError()
         {
-            Bitmap Map = DrawImage(originalImage.Width, originalImage.Height);
+            using Bitmap Map = DrawImage(originalImage.Width, originalImage.Height);
 
             Rectangle rect1 = new Rectangle(0, 0, Map.Width, Map.Height);
             Rectangle rect2 = new Rectangle(0, 0, originalImage.Width, originalImage.Height);
@@ -87,29 +88,35 @@ namespace Genetic_Art
             BitmapData MapData1 = Map.LockBits(rect1, ImageLockMode.ReadOnly, Map.PixelFormat);
             BitmapData MapData2 = originalImage.LockBits(rect2, ImageLockMode.ReadOnly, originalImage.PixelFormat);
 
-            IntPtr ptr1 = MapData1.Scan0;
-            IntPtr ptr2 = MapData2.Scan0;
-
-            int bytes1 = Math.Abs(MapData1.Stride) * Map.Height;
-            int bytes2 = Math.Abs(MapData2.Stride) * originalImage.Height;
-
-            byte[] rgbValues1 = new byte[bytes1];
-            byte[] rgbValues2 = new byte[bytes2];
-
-            Marshal.Copy(ptr1, rgbValues1, 0, bytes1);
-            Marshal.Copy(ptr2, rgbValues2, 0, bytes2);
-
-            double currentError = 0;
-
-            for (int i = 0; i < rgbValues1.Length; i++)
+            try
             {
-                int difference = (rgbValues2[i] - rgbValues1[i]);
-                currentError += difference*difference;
+                IntPtr ptr1 = MapData1.Scan0;
+                IntPtr ptr2 = MapData2.Scan0;
+
+                int bytes1 = Math.Abs(MapData1.Stride) * Map.Height;
+                int bytes2 = Math.Abs(MapData2.Stride) * originalImage.Height;
+
+                byte[] rgbValues1 = new byte[bytes1];
+                byte[] rgbValues2 = new byte[bytes2];
+
+                Marshal.Copy(ptr1, rgbValues1, 0, bytes1);
+                Marshal.Copy(ptr2, rgbValues2, 0, bytes2);
+
+                double currentError = 0;
+
+                for (int i = 0; i < rgbValues1.Length; i++)
+                {
+                    int difference = (rgbValues2[i] - rgbValues1[i]);
+                    currentError += difference*difference;
+                }
+
+                return currentError / (originalImage.Width * originalImage.Height);
             }
-
-            originalImage.UnlockBits(MapData2);
-
-            return currentError / (originalImage.Width * originalImage.Height);
+            finally
+            {
+                Map.UnlockBits(MapData1);
+                originalImage.UnlockBits(MapData2);
+            }
 
             /*
             for (int x = 0; x < originalImage.Width; x++)

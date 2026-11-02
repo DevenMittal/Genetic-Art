@@ -21,9 +21,10 @@ namespace Genetic_Art
 
         public void DrawTriangle(Graphics gfx, float xCoefficent, float yCoefficent)
         {
-            gfx.FillPolygon(new SolidBrush(color), 
-                new PointF[] { new PointF(points[0].X * xCoefficent, points[0].Y * yCoefficent), 
-                               new PointF(points[1].X * xCoefficent, points[1].Y * yCoefficent), 
+            using SolidBrush brush = new SolidBrush(color);
+            gfx.FillPolygon(brush,
+                new PointF[] { new PointF(points[0].X * xCoefficent, points[0].Y * yCoefficent),
+                               new PointF(points[1].X * xCoefficent, points[1].Y * yCoefficent),
                                new PointF(points[2].X * xCoefficent, points[2].Y * yCoefficent) });
         }
 
