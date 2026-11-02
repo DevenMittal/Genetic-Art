@@ -25,7 +25,8 @@ namespace Genetic_Art
         {
             string outputDirectory = Path.Combine(AppContext.BaseDirectory, "checkpoints");
             Directory.CreateDirectory(outputDirectory);
-            using Bitmap original = new Bitmap((Bitmap)Properties.Resources.ResourceManager.GetObject("Original.Image")!);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            using Bitmap original = new Bitmap((Bitmap)resources.GetObject("Original.Image")!);
             GeneticArtTrainer trainer = new GeneticArtTrainer(original, Constants.maxTriangles, 8, new Random(20261101));
             int[] checkpoints = { 0, 25, 100, 250, 500, 1000 };
             int completed = 0;
