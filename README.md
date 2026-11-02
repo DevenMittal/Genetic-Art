@@ -14,7 +14,7 @@ These are the original images attached to this repository. The reproducible chec
 
 ### Checkpoint export
 
-The optional `--export` mode saves the best candidate at generations 0, 25, 100, 250, 500, and 1,000. It uses a fixed seed and runs on Windows through the repository's GitHub Actions workflow. The workflow artifact contains the PNG checkpoints and `metrics.csv`.
+The optional `--export` mode saves the best candidate at generations 0, 100, 1,000, 5,000, 10,000, and 20,000. It uses a fixed seed and runs on Windows through the repository's GitHub Actions workflow. The workflow artifact contains the PNG checkpoints and `metrics.csv`.
 
 ## How it works
 

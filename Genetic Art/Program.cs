@@ -28,7 +28,7 @@ namespace Genetic_Art
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             using Bitmap original = new Bitmap((Bitmap)resources.GetObject("Original.Image")!);
             GeneticArtTrainer trainer = new GeneticArtTrainer(original, Constants.maxTriangles, 8, new Random(20261101));
-            int[] checkpoints = { 0, 25, 100, 250, 500, 1000 };
+            int[] checkpoints = { 0, 100, 1000, 5000, 10000, 20000 };
             int completed = 0;
             foreach (int checkpoint in checkpoints)
             {
